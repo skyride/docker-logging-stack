@@ -11,6 +11,13 @@ services:
       - influxdb
       - elasticsearch
 
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    environment:
+      - elasticsearch.hosts=http://elasticsearch:9200
+    ports:
+      - ${KIBANA_PORT}:5601
+
   fluentd:
     build: .
     volumes:
