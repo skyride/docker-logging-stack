@@ -23,6 +23,8 @@ services:
     volumes:
       - .:/fluentd/etc
       - fluentdata:/data
+    ports:
+      - ${FLUENTD_PORT}:${FLUENTD_PORT}
     env_file:
       - .env
     depends_on:
