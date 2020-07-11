@@ -42,7 +42,7 @@ services:
       - elasticdata:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS=${ES_JAVA_OPTS}
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 volumes:
   grafanadata:
