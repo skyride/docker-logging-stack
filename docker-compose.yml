@@ -1,20 +1,32 @@
 version: "3.0"
 
 services:
-  influxdb:
-    image: influxdb:1.8.0
+  fluentd:
+    build: .
+    volumes:
+      - .:/fluentd/etc
+      - fluentdata:/data
     env_file:
       - .env
+    depends_on:
+      - influxdb
+      - elasticsearch
+
+  influxdb:
+    image: influxdb:1.8.0
     volumes:
       - influxdata:/var/lib/influxdb
+    env_file:
+      - .env
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
-    environment:
-      - discovery.type=single-node
     volumes:
       - elasticdata:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
 
 volumes:
+  fluentdata:
   elasticdata:
   influxdata:
